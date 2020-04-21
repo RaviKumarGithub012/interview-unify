@@ -190,16 +190,22 @@ main{
   padding: 10px 15px;
   background: #fff;
 }
+.product-control .input-group-text {
+  cursor: pointer;
+}
+
 #footer{
   background-color: #0a22a2;
   padding: 15px 0;
   color: #fff;
   margin-top: 20px;
   position: absolute;
+  
   bottom: 0;
   left: 0;
   width: 100%;
 }
+
 
 /* media queries */
 
