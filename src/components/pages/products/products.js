@@ -1,17 +1,24 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, Image } from 'react-bootstrap';
 
 
-const Products = ({ imgSrc, title, discription, linkId, not_found, price }) => {
+const Products = ({ title, discription, linkId, not_found }) => {
+  
+  const [price, setPrice] = useState(0);
+  
+  useEffect(() => {
+    setPrice(Math.round(Math.random() * 10000));
+  }, []);
+  
   return (
     <Fragment>
       {not_found ?
         <div className="container text-center py-5 text-capitalize">{not_found}</div>
-        : <Link to={'/product/' + linkId} className='product-dtl mt-3 d-inline-block'>
+        : <Link to={'/product/' + linkId} className='product-dtl mt-3 d-block'>
           <Card>
             <div className="card-img-box text-center">
-              <Card.Img variant="top" src={imgSrc} />
+              <Card.Img variant="top" src='/images/Xiaomi Mi 9.png' alt='product' />
             </div>
             <Card.Body>
               <Card.Title>{title}</Card.Title>

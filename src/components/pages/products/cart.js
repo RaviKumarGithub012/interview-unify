@@ -6,7 +6,8 @@ import SingleCart from './single-cart';
 
 const Cart = () => {
 
-  const reduxStore = useSelector(state => state.products);
+  // redux store
+  const reduxStore = useSelector(state => state.cart);
   const cartProduct = reduxStore.cart;
 
 
@@ -33,9 +34,9 @@ const Cart = () => {
                         key={item.id}
                         itemImg={item.src}
                         itemHeading={item.title}
-                        itemPrice={item.price}
+                        itemPrice={100}
                         productId={item.id}
-                        unite={item.quantity}
+                        unite={5}
                       />
                     })
                   }
@@ -48,8 +49,6 @@ const Cart = () => {
             </Fragment>
             : 'Your Cart is empty.'
         }
-
-
       </Container>
     </section>
   );

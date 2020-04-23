@@ -1,18 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import { Nav, Form, Navbar, FormControl, Container, Image } from 'react-bootstrap';
+import { Nav, Form, Navbar, FormControl, Container, Image, Button } from 'react-bootstrap';
 import { NavLink, Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { searchAction } from '../store/actions/searchAction';
+import AddProduct from '../product-modal/add-product';
+
 
 const Header = () => {
 
+  // redux store
   const updateProduct = useDispatch();
-  const routeHistory = useHistory();
+  const { cart, cartItem } = useSelector(state => state.cart);
 
+  // react hooks
+  const routeHistory = useHistory();
   const [isProductRoute, setisProductRoute] = useState('/');
   const [value, setValue] = useState('');
-  const { cart, cartItem } = useSelector(state => state.products);
+  const [show, setShow] = useState(false);
 
+
+  // action functions
   const findProdcut = inValue => {
     setValue(inValue);
     updateProduct(searchAction(inValue));
@@ -26,10 +33,14 @@ const Header = () => {
     }
   }, [isProductRoute, routeHistory.location]);
 
+  const handleShow = () => { setShow(true); }
+
+  const handleClose = () => { setShow(false); }
+
   return (
     <header id="theme-header">
       <Container>
-        <Navbar className='flex-wrap'>
+        <Navbar className='flex-wrap pl-0'>
           <Link className='navbar-brand' to="/">
             <img src='/images/logo.png' className='img-fluid h-100' alt='logo' />
           </Link>
@@ -43,12 +54,16 @@ const Header = () => {
                 : null
             }
           </Navbar.Collapse>
-            <Nav className={isProductRoute === '/' ? null : 'ml-auto'}>
-              <NavLink className='nav-link mr-2' activeClassName='active-nav' exact to='/'>Products</NavLink>
-              <NavLink className='nav-link' activeClassName='active-nav' exact to='/cart'><Image src='/images/cart.png' fluid className='cart-img' /> <span>({cart.length + cartItem})</span> </NavLink>
-            </Nav>
+          <Nav className={'align-items-center' + (isProductRoute === '/' ? null : 'ml-auto')}>
+            <NavLink className='nav-link mr-1 mr-md-2' activeClassName='active-nav' exact to='/'>Home</NavLink>
+            <NavLink className='nav-link mr-1 mr-md-2' activeClassName='active-nav' exact to='/todos'><span className='d-inline-block d-md-none'>+</span> <span className='d-none d-md-inline-block'>Add</span> Todos</NavLink>
+            <Button className='theme-btn add_product mr-1 mr-md-2' title='Add your Product' onClick={handleShow}><span className='d-none d-md-inline-block'>Add Product</span> <span>+</span></Button>
+            <span className='divider'>|</span>
+            <NavLink className='nav-link' activeClassName='active-nav' exact to='/cart'><Image src='/images/cart.png' fluid className='cart-img' /> <span>({cart.length + cartItem})</span> </NavLink>
+          </Nav>
         </Navbar>
       </Container>
+      <AddProduct show={show} handleHide={handleClose} />
     </header>
   );
 }
