@@ -80,7 +80,7 @@ const SingleTodos = () => {
             </Form>
             :
             <Fragment>
-              <h5 className='text-center text-capitalize'>{singleTodo ? singleTodo.title : 'Loding...'}</h5>
+              <h5 className='text-center text-capitalize'>{singleTodo.title ? singleTodo.title : 'Loding...'}</h5>
               <Row>
                 <Col className='text-right'>
                   <span className='text-capitalize'><strong>user ID:</strong> {singleTodo.id}</span>

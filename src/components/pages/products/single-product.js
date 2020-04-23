@@ -7,7 +7,7 @@ import { SingleProductsLIst } from '../../store/actions/product-actions';
 
 
 const SingleProducts = () => {
-  
+
   // route id
   const { id } = useParams();
 
@@ -15,7 +15,7 @@ const SingleProducts = () => {
   const reduxStore = useSelector(state => state.products);
   const { singleProduct } = reduxStore;
   const updateCart = useDispatch();
-  
+
   // react hooks
   const [cartValue, setcartValue] = useState(1);
   const [isDisable, setIsDisable] = useState(false);
@@ -38,7 +38,7 @@ const SingleProducts = () => {
     if (cartValue < 2) {
       setcartValue(cartValue + 1);
       // add the new array and move to reducer for cart page
-      const cartProduct = Object.assign({}, singleProduct);      
+      const cartProduct = Object.assign({}, singleProduct);
       updateCart(AddToCart(cartProduct));
     } else {
       // check if cart is already added
@@ -54,21 +54,21 @@ const SingleProducts = () => {
           <li className="breadcrumb-item">
             <Link to='/'><Image src='/images/home.png' alt='home' fluid className='home-item' /></Link>
           </li>
-          <Breadcrumb.Item active>{singleProduct ? singleProduct.title : 'Loding...'}</Breadcrumb.Item>
+          <Breadcrumb.Item active>{singleProduct.title ? singleProduct.title : 'Loding...'}</Breadcrumb.Item>
         </Breadcrumb>
         <Row>
           <Col lg={4}>
             <div className="single-p-img text-center">
               {
-                singleProduct ? <Image src='/images/Xiaomi Mi 9.png' alt='product' fluid /> : 'Lodding...'
+                singleProduct.title ? <Image src='/images/Xiaomi Mi 9.png' alt='product' fluid /> : 'Lodding...'
               }
             </div>
           </Col>
           <Col lg={8}>
             {
-              singleProduct ?
+              singleProduct.title ?
                 <div className='mt-3 mt-lg-0'>
-                  <h1>{singleProduct ? singleProduct.title : 'Loding...'}</h1>
+                  <h1>{singleProduct.title ? singleProduct.title : 'Loding...'}</h1>
                   <p className='mt-3 mt-md-4'>{singleProduct.body}</p>
                   <Row className='mx-0 align-items-center'>
                     <Button onClick={addCartValue} disabled={isDisable} className='cart-btn ml-3'>Add To Cart </Button>
