@@ -31,7 +31,7 @@ const SingleProducts = () => {
   useEffect(() => {
     // set the state for single product
     updateCart(SingleProductsLIst(id));
-  }, [id, singleProduct]);
+  }, [id, reduxStore]);
 
 
   const addCartValue = () => {
